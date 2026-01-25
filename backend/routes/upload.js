@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const { parseCSV } = require("../services/csvParser");
 const { normalizeTransaction } = require("../models/transactions");
+const { categorizeTransaction } = require("../services/categorizer");
 const router = express.Router();
 
 //Stores uploaded file in memory (buffer)
@@ -21,10 +22,11 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
 
     const parsedRows = await parseCSV(req.file.buffer);
     const normalizedTransactions = parsedRows.map(normalizeTransaction);
+    const categorizedTransactions = normalizedTransactions.map(categorizeTransaction);
     res.json({
         message: "CSV uploaded and normalized successfully",
-        totalTransactions: normalizedTransactions.length,
-        transactions: normalizedTransactions,
+        totalTransactions: categorizedTransactions.length,
+        transactions: categorizedTransactions,
     });
   } catch (error) {
     console.error(error);

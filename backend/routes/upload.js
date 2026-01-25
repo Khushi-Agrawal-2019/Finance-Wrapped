@@ -4,11 +4,8 @@ const { parseCSV } = require("../services/csvParser");
 
 const router = express.Router();
 
-/**
- * Multer configuration
- * Stores uploaded file in memory (buffer)
- * This is intentional for small CSV files
- */
+//Stores uploaded file in memory (buffer)
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 /**

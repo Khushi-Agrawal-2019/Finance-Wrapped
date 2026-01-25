@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { parseCSV } = require("../services/csvParser");
-
+const { normalizeTransaction } = require("../models/transactions");
 const router = express.Router();
 
 //Stores uploaded file in memory (buffer)
@@ -11,6 +11,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 /**
  * POST /api/upload-csv
  * Accepts a CSV file and returns parsed data
+ * Returns normalized transaction data
  */
 router.post("/upload-csv", upload.single("file"), async (req, res) => {
   try {
@@ -18,12 +19,12 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const parsedData = await parseCSV(req.file.buffer);
-
+    const parsedRows = await parseCSV(req.file.buffer);
+    const normalizedTransactions = parsedRows.map(normalizeTransaction);
     res.json({
-      message: "CSV uploaded successfully",
-      rows: parsedData.length,
-      data: parsedData,
+        message: "CSV uploaded and normalized successfully",
+        totalTransactions: normalizedTransactions.length,
+        transactions: normalizedTransactions,
     });
   } catch (error) {
     console.error(error);

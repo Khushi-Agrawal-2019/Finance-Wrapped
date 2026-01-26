@@ -1,7 +1,7 @@
 // Converts insights into sentences
 
 
-function generateNarratives(insights, monthlyInsights, behaviorInsights) {
+function generateNarratives(insights, monthlyInsights, behaviorInsights, merchantInsights) {
     const narratives = [];
   
     if (monthlyInsights.highestSpendingMonth) {
@@ -15,7 +15,13 @@ function generateNarratives(insights, monthlyInsights, behaviorInsights) {
         `You spent most often on ${behaviorInsights.mostFrequentCategory}.`
       );
     }
-  
+
+    if (merchantInsights.topMerchant) {
+        narratives.push(
+          `${merchantInsights.topMerchant} was your most frequent merchant.`
+        );
+      }
+     
     narratives.push(
       `You are more of a ${behaviorInsights.weekendBias.toLowerCase()}.`
     );

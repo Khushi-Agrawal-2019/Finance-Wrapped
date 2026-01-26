@@ -4,6 +4,7 @@ const { parseCSV } = require("../services/csvParser");
 const { normalizeTransaction } = require("../models/transactions");
 const { categorizeTransaction } = require("../services/categorizer");
 const { generateInsights } = require("../services/insights");
+const { generateMonthlyInsights } = require("../services/monthlyInsights");
 
 
 const router = express.Router();
@@ -27,10 +28,13 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
     const normalizedTransactions = parsedRows.map(normalizeTransaction);
     const categorizedTransactions = normalizedTransactions.map(categorizeTransaction);
     const insights = generateInsights(categorizedTransactions);
+    const monthlyInsights = generateMonthlyInsights(categorizedTransactions);
+
 
     res.json({
         message: "CSV uploaded and normalized successfully",
         insights,
+        monthlyInsights,
     });
   } catch (error) {
     console.error(error);

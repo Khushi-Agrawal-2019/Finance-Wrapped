@@ -1,22 +1,32 @@
+import { useEffect, useState } from "react"
 import InsightCard from "../components/InsightCard"
 import { getPeakDamageMonth } from "../insights/peakDamage"
-
-//  mock data
-const mockTransactions = [
-  { date: "2024-03-05", amount: -12000 },
-  { date: "2024-03-12", amount: -22000 },
-  { date: "2024-02-10", amount: -8000 },
-  { date: "2024-03-28", amount: -34000 }
-]
+import { fetchTransactions } from "../api/transactions"
 
 export default function PeakDamage() {
-  const insight = getPeakDamageMonth(mockTransactions)
+  const [insight, setInsight] = useState<any>(null)
 
-  if (!insight) return null
+  useEffect(() => {
+    async function load() {
+      const transactions = await fetchTransactions()
+      const result = getPeakDamageMonth(transactions)
+      setInsight(result)
+    }
+
+    load()
+  }, [])
+
+  if (!insight) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        Crunching your financial trauma…
+      </div>
+    )
+  }
 
   return (
     <InsightCard
-      eyebrow="Your 2024 Wrapped"
+      eyebrow="Your Finance Wrapped"
       title={`${insight.month} ${insight.year}`}
       value={`₹${insight.totalSpent.toLocaleString()}`}
       subtitle={insight.tagline}

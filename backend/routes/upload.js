@@ -9,7 +9,6 @@ const { generateBehaviorInsights } = require("../services/behaviorInsights");
 const { generateNarratives } = require("../services/narratives");
 const { generateMerchantInsights } = require("../services/merchantInsights");
 
-
 const router = express.Router();
 
 //Stores uploaded file in memory (buffer)
@@ -30,6 +29,8 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
     const parsedRows = await parseCSV(req.file.buffer);
     const normalizedTransactions = parsedRows.map(normalizeTransaction);
     const categorizedTransactions = normalizedTransactions.map(categorizeTransaction);
+    transactions = categorizedTransactions
+
     const insights = generateInsights(categorizedTransactions);
     const monthlyInsights = generateMonthlyInsights(categorizedTransactions);
     const behaviorInsights = generateBehaviorInsights(categorizedTransactions);
@@ -50,5 +51,14 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
     res.status(500).json({ error: "Failed to process CSV file" });
   }
 });
+
+/**
+ * GET /api/transactions
+ * Returns last uploaded transactions
+ */
+router.get("/transactions", (req, res) => {
+    res.json(transactions);
+  });
+  
 
 module.exports = router;

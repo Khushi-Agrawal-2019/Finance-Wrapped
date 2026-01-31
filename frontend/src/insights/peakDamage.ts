@@ -1,42 +1,32 @@
-type Transaction = {
-    date: string
-    amount: number
-  }
-  
-  type PeakDamageResult = {
-    month: string
-    year: number
-    totalSpent: number
-    tagline: string
-  }
-  
-  export function getPeakDamageMonth(
-    transactions: Transaction[]
-  ): PeakDamageResult | null {
-    if (!transactions.length) return null
-  
+export function getPeakDamageMonth(transactions: any[]) {
     const monthlyTotals: Record<string, number> = {}
   
     transactions.forEach(txn => {
-      const d = new Date(txn.date)
-      const key = `${d.getFullYear()}-${d.getMonth()}`
+      const date = new Date(txn.date)
+      const key = `${date.getMonth()}-${date.getFullYear()}`
       monthlyTotals[key] = (monthlyTotals[key] || 0) + Math.abs(txn.amount)
     })
   
-    const [peakKey, totalSpent] = Object.entries(monthlyTotals)
-      .sort((a, b) => b[1] - a[1])[0]
+    let maxMonth = ""
+    let maxSpent = 0
   
-    const [year, monthIndex] = peakKey.split("-").map(Number)
+    Object.entries(monthlyTotals).forEach(([month, total]) => {
+      if (total > maxSpent) {
+        maxSpent = total
+        maxMonth = month
+      }
+    })
   
-    const month = new Date(year, monthIndex).toLocaleString("default", {
+    const [monthIndex, year] = maxMonth.split("-")
+    const monthName = new Date(0, Number(monthIndex)).toLocaleString("default", {
       month: "long"
     })
   
     return {
-      month,
+      month: monthName,
       year,
-      totalSpent,
-      tagline: `${month} really said financial character development`
+      totalSpent: Math.round(maxSpent),
+      tagline: "Your wallet did not survive this month."
     }
   }
   

@@ -6,6 +6,8 @@ const uploadRoutes = require("./routes/upload");
 
 const app = express();
 const PORT = 3000;
+let transactions = []
+
 
 app.use(cors());
 app.use(express.json());

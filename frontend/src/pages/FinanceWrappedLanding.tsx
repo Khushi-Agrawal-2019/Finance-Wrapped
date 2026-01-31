@@ -1,6 +1,10 @@
 import { motion } from "framer-motion"
+import { useState } from "react"
+import UploadModal from "../components/UploadModal"
 
 export default function FinanceWrappedLanding() {
+    const [isUploadOpen, setIsUploadOpen] = useState(false)
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#020617] via-[#020617] to-black text-white overflow-x-hidden">
       
@@ -21,9 +25,13 @@ export default function FinanceWrappedLanding() {
           Spotify-style story you’ll actually want to scroll through.
         </p>
 
-        <button className="px-8 py-4 rounded-full bg-green-500 text-black font-semibold hover:scale-105 transition">
-          Upload your CSV
+        <button
+            onClick={() => setIsUploadOpen(true)}
+            className="px-8 py-4 rounded-full bg-green-500 text-black font-semibold hover:scale-105 transition"
+        >
+            Upload your CSV
         </button>
+
       </section>
 
       {/* FEATURE PREVIEW */}
@@ -53,6 +61,12 @@ export default function FinanceWrappedLanding() {
       <footer className="py-10 text-center text-white/40 text-sm">
         Built by Khushi • Finance Wrapped
       </footer>
+
+      <UploadModal
+  isOpen={isUploadOpen}
+  onClose={() => setIsUploadOpen(false)}
+/>
+
     </div>
   )
 }

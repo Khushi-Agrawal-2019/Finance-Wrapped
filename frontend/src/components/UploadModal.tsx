@@ -6,10 +6,41 @@ type UploadModalProps = {
   onClose: () => void
 }
 
+
+
 export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
   if (!isOpen) return null
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-
+  async function handleUpload() {
+    if (!selectedFile) return
+  
+    const formData = new FormData()
+    formData.append("file", selectedFile)
+  
+    try {
+      const res = await fetch("http://localhost:3000/api/upload-csv", {
+        method: "POST",
+        body: formData,
+      })
+  
+      if (!res.ok) {
+        throw new Error("Upload failed")
+      }
+  
+      const data = await res.json()
+      console.log("Backend response:", data)
+  
+      // TEMP: store in sessionStorage
+      sessionStorage.setItem("financeWrappedData", JSON.stringify(data))
+  
+      // Navigate to insights page
+      window.location.href = "/finance-wrapped/insights"
+    } catch (err) {
+      console.error(err)
+      alert("Something went wrong while uploading")
+    }
+  }
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* BACKDROP */}
@@ -64,11 +95,12 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
         </label>
 
-
         <button
-          className="mt-6 w-full rounded-full bg-green-500 py-3 font-semibold text-black hover:scale-105 transition"
+        onClick={handleUpload}
+        disabled={!selectedFile}
+        className="mt-6 w-full rounded-full bg-green-500 py-3 font-semibold text-black hover:scale-105 transition disabled:opacity-50"
         >
-          Upload & Begin
+        Generate My Finance Wrapped
         </button>
       </motion.div>
     </div>

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import FinanceWrappedLanding from "./pages/FinanceWrappedLanding"
+import FinanceWrappedInsights from "./pages/FinanceWrappedInsights"
 
 function App() {
   return (
@@ -14,13 +15,9 @@ function App() {
           element={<FinanceWrappedLanding />}
         />
 
-        {/* Insights route (placeholder for now) */}
-        <Route
-          path="/finance-wrapped/insights"
-          element={<div className="min-h-screen flex items-center justify-center text-white bg-black">
-            Insights coming soon 👀
-          </div>}
-        />
+      <Route path="/finance-wrapped/insights" element={<FinanceWrappedInsights />} />
+
+
       </Routes>
     </BrowserRouter>
   )

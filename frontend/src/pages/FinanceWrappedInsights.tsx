@@ -6,14 +6,36 @@ export default function FinanceWrappedInsights() {
 
   const data = rawData ? JSON.parse(rawData) : null
 
-  if (!data || !data.insights || !data.insights.peakDamageMonth) {
+  if (!data || !data.monthlyInsights || !data.monthlyInsights.highestSpendingMonth) {
     return (
       <div className="min-h-screen flex items-center justify-center text-white">
         No insights found. Please upload a CSV first.
       </div>
     )
   }
-  const peak = data.insights.peakDamageMonth
+
+  const { highestSpendingMonth, monthlyBreakdown } = data.monthlyInsights
+  
+
+  function niceMonthLabel(key: string) {
+
+    const [year, month] = key.split("-");
+    const d = new Date(Number(year), Number(month) - 1);
+    return d.toLocaleString("default", { month: "long", year: "numeric" }); // "January 2025"
+  }
+  // Extract the month and amount from the monthlyBreakdown
+  const peak = highestSpendingMonth && monthlyBreakdown[highestSpendingMonth]
+  ? { month: niceMonthLabel(highestSpendingMonth), amount: Math.round(monthlyBreakdown[highestSpendingMonth].totalSpend) }
+  : null
+
+  
+  if (!peak || typeof peak.amount !== "number") {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        Invalid data for insights. Please check your uploaded CSV.
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#020617] text-white px-6 py-16">

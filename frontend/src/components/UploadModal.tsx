@@ -1,5 +1,7 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 
 type UploadModalProps = {
   isOpen: boolean
@@ -8,9 +10,14 @@ type UploadModalProps = {
 
 
 
+
 export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
-  if (!isOpen) return null
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const navigate = useNavigate()
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  
+    if (!isOpen) return null
+  
+
   async function handleUpload() {
     if (!selectedFile) return
   
@@ -30,16 +37,23 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
       const data = await res.json()
       console.log("Backend response:", data)
   
-      // TEMP: store in sessionStorage
+      //  Store data
       sessionStorage.setItem("financeWrappedData", JSON.stringify(data))
   
-      // Navigate to insights page
-      window.location.href = "/finance-wrapped/insights"
+      // Close modal 
+      onClose()
+  
+      // Navigate AFTER modal unmounts
+      setTimeout(() => {
+        navigate("/finance-wrapped/insights")
+      }, 0)
+  
     } catch (err) {
       console.error(err)
       alert("Something went wrong while uploading")
     }
   }
+  
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

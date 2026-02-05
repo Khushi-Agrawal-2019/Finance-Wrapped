@@ -6,13 +6,10 @@ import { useNavigate } from "react-router-dom"
 type UploadModalProps = {
   isOpen: boolean
   onClose: () => void
+  onSuccess: () => void
 }
 
-
-
-
-export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
-    const navigate = useNavigate()
+export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
   
     if (!isOpen) return null
@@ -31,26 +28,22 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
       })
   
       if (!res.ok) {
-        throw new Error("Upload failed")
+        const errorText = await res.text() // Log the full error response
+        console.error("Upload failed:", errorText)
+        throw new Error(`Upload failed: ${errorText}`)
       }
   
       const data = await res.json()
       console.log("Backend response:", data)
   
-      //  Store data
+      // Store data in sessionStorage
       sessionStorage.setItem("financeWrappedData", JSON.stringify(data))
   
-      // Close modal 
-      onClose()
-  
-      // Navigate AFTER modal unmounts
-      setTimeout(() => {
-        navigate("/finance-wrapped/insights")
-      }, 0)
-  
+      // Call the onSuccess callback
+      onSuccess()
     } catch (err) {
-      console.error(err)
-      alert("Something went wrong while uploading")
+      console.error("Upload error:", err)
+      alert(err.message || "Something went wrong while uploading")
     }
   }
   
@@ -120,3 +113,5 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     </div>
   )
 }
+
+

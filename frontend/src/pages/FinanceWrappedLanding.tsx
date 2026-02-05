@@ -1,9 +1,11 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import UploadModal from "../components/UploadModal"
 
 export default function FinanceWrappedLanding() {
-    const [isUploadOpen, setIsUploadOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#020617] via-[#020617] to-black text-white overflow-x-hidden">
@@ -26,7 +28,7 @@ export default function FinanceWrappedLanding() {
         </p>
 
         <button
-            onClick={() => setIsUploadOpen(true)}
+            onClick={() => setOpen(true)}
             className="px-8 py-4 rounded-full bg-green-500 text-black font-semibold hover:scale-105 transition"
         >
             Upload your CSV
@@ -63,9 +65,13 @@ export default function FinanceWrappedLanding() {
       </footer>
 
       <UploadModal
-  isOpen={isUploadOpen}
-  onClose={() => setIsUploadOpen(false)}
-/>
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onSuccess={() => {
+          setOpen(false)
+          navigate("/finance-wrapped/stories")
+        }}
+      />
 
     </div>
   )

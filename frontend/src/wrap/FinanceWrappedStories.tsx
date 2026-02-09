@@ -65,9 +65,9 @@ export default function FinanceWrappedStories() {
         ref={containerRef}
         className="h-screen overflow-y-scroll snap-y snap-mandatory"
       >
-        {narratives.map((text, index) => (
-          <StorySlide key={index} text={text} index={0} />
-        ))}
+      {narratives.map((text, index) => (
+        <StorySlide key={index} text={text} index={index} />
+      ))}
 
         {/* CTA SLIDE */}
         <div className="snap-start h-screen flex items-center justify-center px-6">

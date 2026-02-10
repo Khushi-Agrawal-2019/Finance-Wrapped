@@ -22,6 +22,15 @@ export default function FinanceWrappedStories() {
   const narratives: string[] = data.narratives
   const totalSlides = narratives.length + 1 // +1 for CTA slide
 
+  const gradients = [
+    "from-indigo-900 via-black to-black",      // intro
+    "from-rose-900 via-black to-black",            // damage
+    "from-slate-700 via-black to-black",         // habits
+    "from-yellow-700 via-black to-black",           // patterns
+    "from-purple-900 via-black to-black",         // merchants
+  ]
+  
+
   {/* Scroll listener */}
   useEffect(() => {
     const container = containerRef.current
@@ -65,12 +74,23 @@ export default function FinanceWrappedStories() {
         ref={containerRef}
         className="h-screen overflow-y-scroll snap-y snap-mandatory"
       >
-      {narratives.map((text, index) => (
-        <StorySlide key={index} text={text} index={index} />
-      ))}
+      {narratives.map((text, index) => {
+        const gradient = gradients[index % gradients.length]
+
+        return (
+          <section
+            key={index}
+            className={`snap-start h-screen bg-gradient-to-br ${gradient} flex items-center justify-center px-6`}
+          >
+            <StorySlide text={text} index={index} />
+          </section>
+        )
+      })}
+
 
         {/* CTA SLIDE */}
-        <div className="snap-start h-screen flex items-center justify-center px-6">
+        <div className="snap-start h-screen bg-gradient-to-br from-green-900 via-black to-black flex items-center justify-center px-6">
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}

@@ -5,10 +5,17 @@ export default function AppLayout() {
   const location = useLocation()
   const showNav = location.pathname.startsWith("/finance-wrapped")
 
+  function handleShare() {
+    const element = document.getElementById("wrapped-summary")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <div className="w-full min-h-screen relative">
       <Outlet />
-      {showNav && <WrappedNav />}
+      {showNav && <WrappedNav onShare={handleShare} />}
     </div>
   )
 }

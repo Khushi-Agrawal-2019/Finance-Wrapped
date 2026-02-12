@@ -1,6 +1,10 @@
 import { Link, useLocation } from "react-router-dom"
 
-export default function WrappedNav() {
+type WrappedNavProps = {
+  onShare?: () => void
+}
+
+export default function WrappedNav({ onShare }: WrappedNavProps) {
   const location = useLocation()
 
   const navItems = [
@@ -9,7 +13,8 @@ export default function WrappedNav() {
   ]
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex gap-6">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-8 py-3 flex gap-8 items-center">
+      
       {navItems.map((item) => {
         const active = location.pathname === item.path
         return (
@@ -24,6 +29,13 @@ export default function WrappedNav() {
           </Link>
         )
       })}
+
+      <button
+        onClick={onShare}
+        className="text-sm font-semibold text-green-400 hover:scale-105 transition"
+      >
+        Share
+      </button>
     </nav>
   )
 }

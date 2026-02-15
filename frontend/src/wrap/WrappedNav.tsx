@@ -8,6 +8,7 @@ export default function WrappedNav({ onShare }: WrappedNavProps) {
   const location = useLocation()
 
   const navItems = [
+    { label: "Home", path: "/finance-wrapped" },
     { label: "Stories", path: "/finance-wrapped/stories" },
     { label: "Insights", path: "/finance-wrapped/insights" },
   ]

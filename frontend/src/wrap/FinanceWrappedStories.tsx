@@ -80,9 +80,17 @@ export default function FinanceWrappedStories() {
           return (
             <section
               key={index}
-              className={`snap-start h-screen bg-gradient-to-br ${gradient} flex items-center justify-center px-6`}
+              className="snap-start h-screen relative overflow-hidden"
             >
-              <StorySlide text={text} index={index} />
+              {/* Background layer */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${gradient} transform scale-110`}
+              />
+
+              {/* Foreground content */}
+              <div className="relative z-10 flex items-center justify-center h-full px-6">
+                <StorySlide text={text} index={index} />
+              </div>
             </section>
           )
         })}

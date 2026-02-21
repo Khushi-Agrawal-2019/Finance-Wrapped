@@ -11,14 +11,12 @@ const { generateMerchantInsights } = require("../services/merchantInsights");
 
 const router = express.Router();
 
-//Stores uploaded file in memory (buffer)
-
 const upload = multer({ storage: multer.memoryStorage() });
 
 /**
  * POST /api/upload-csv
  * Accepts a CSV file and returns parsed data
- * Returns normalized transaction data
+ * Automatically detects column format and normalizes
  */
 router.post("/upload-csv", upload.single("file"), async (req, res) => {
   try {
@@ -26,29 +24,39 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
+    // parseCSV now includes column detection
     const parsedRows = await parseCSV(req.file.buffer);
+    
     const normalizedTransactions = parsedRows.map(normalizeTransaction);
-    const categorizedTransactions = normalizedTransactions.map(categorizeTransaction);
-    transactions = categorizedTransactions
+    const categorizedTransactions = normalizedTransactions.map(
+      categorizeTransaction
+    );
+    transactions = categorizedTransactions;
 
     const insights = generateInsights(categorizedTransactions);
     const monthlyInsights = generateMonthlyInsights(categorizedTransactions);
     const behaviorInsights = generateBehaviorInsights(categorizedTransactions);
-
     const merchantInsights = generateMerchantInsights(categorizedTransactions);
-    const narratives = generateNarratives(insights, monthlyInsights, behaviorInsights, merchantInsights);
-    
+    const narratives = generateNarratives(
+      insights,
+      monthlyInsights,
+      behaviorInsights,
+      merchantInsights
+    );
+
     res.json({
-        message: "CSV uploaded and normalized successfully",
-        insights,
-        monthlyInsights,
-        behaviorInsights,
-        narratives,
-        merchantInsights,
+      message: "CSV uploaded and normalized successfully",
+      insights,
+      monthlyInsights,
+      behaviorInsights,
+      narratives,
+      merchantInsights,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to process CSV file" });
+    res.status(400).json({
+      error: error.message || "Failed to process CSV file",
+    });
   }
 });
 
@@ -57,8 +65,7 @@ router.post("/upload-csv", upload.single("file"), async (req, res) => {
  * Returns last uploaded transactions
  */
 router.get("/transactions", (req, res) => {
-    res.json(transactions);
-  });
-  
+  res.json(transactions);
+});
 
 module.exports = router;

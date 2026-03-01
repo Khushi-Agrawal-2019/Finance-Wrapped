@@ -98,6 +98,27 @@ Backend:
 - Summary card
 - Insights deep dive
 
+---
 
+## Landing Page
 <img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/e6b3aeed-552f-44ec-9d2c-fd4a358d2251" />
+
+## Upload CSV 
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/c04ed5c2-900f-4f19-8b77-98dfb07240e6" />
+
+## Scrollable Stories
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/9c617235-7cdd-413b-ae03-1cccf7e02153" />
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/e46c2702-17d9-4f9a-b182-5a7eff64f599" />
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/41fe819c-8fb4-4ed4-9b1c-2c629feba8b7" />
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/0e860060-4b50-4cab-b700-aac2241469b6" />
+
+## Sharable card
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/d81eae93-6379-44fc-876b-dd74773d4d46" />
+
+## Insights 
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/09cf3113-b46a-40d7-8dd7-54844b05294d" />
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/07f714d1-74f3-4d08-aa40-8a15a52e8001" />
+
+
+
 

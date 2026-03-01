@@ -4,6 +4,16 @@ Finance Wrapped is a personal finance insights project inspired by Spotify Wrapp
 It transforms raw bank statements into easy to understand spending insights, trends,
 and summaries making personal finance more engaging for Gen Z.
 
+Finance Wrapped converts bank statements (CSV) into:
+
+📖 Scroll-based storytelling narratives
+
+📈 Analytical insights
+
+🎯 Behavioral breakdowns
+
+📱 Share-ready summary cards
+
 ---
 
 ## Why this project?
@@ -31,9 +41,9 @@ story like, and visual way similar to Spotify Wrapped.
 ## Tech Stack
 
 - Node.js
-- Express.js
-- Multer (file uploads)
-- csv-parser
+- React + TypeScript
+- TailwindCSS
+- Framer Motion
 
 ---
 

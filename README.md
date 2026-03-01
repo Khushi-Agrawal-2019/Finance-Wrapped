@@ -77,7 +77,6 @@ Backend:
 - No persistent storage
 - No AI-generated narratives (planned)
 - No merchant auto-categorization yet
-- No export-to-image yet
 
 ---
 
@@ -99,3 +98,4 @@ Backend:
 - Summary card
 - Insights deep dive
 
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/782f1de4-76d5-4754-91fa-71629a023b9d" />

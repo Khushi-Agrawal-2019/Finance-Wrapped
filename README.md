@@ -99,4 +99,5 @@ Backend:
 - Insights deep dive
 
 
-<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/1e2fc49a-9378-47d0-bedf-68ef9e431bb1" />
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/e6b3aeed-552f-44ec-9d2c-fd4a358d2251" />
+

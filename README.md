@@ -98,4 +98,5 @@ Backend:
 - Summary card
 - Insights deep dive
 
-<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/782f1de4-76d5-4754-91fa-71629a023b9d" />
+
+<img width="1710" height="1107" alt="image" src="https://github.com/user-attachments/assets/1e2fc49a-9378-47d0-bedf-68ef9e431bb1" />

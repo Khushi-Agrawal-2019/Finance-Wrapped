@@ -28,6 +28,22 @@ story like, and visual way similar to Spotify Wrapped.
 
 ---
 
+## 🧠 Design Philosophy
+
+Finance Wrapped is built around:
+
+Emotional storytelling over raw numbers
+
+Scroll-native interaction
+
+Minimal UI distraction
+
+Clean separation of concerns
+
+Data normalization first, visuals second
+
+---
+
 ## Current Features (Backend)
 
 - Express.js backend setup
@@ -38,18 +54,48 @@ story like, and visual way similar to Spotify Wrapped.
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
-- Node.js
-- React + TypeScript
+Frontend:
+
+- React
+- TypeScript
 - TailwindCSS
 - Framer Motion
+- React Router v6
+
+Backend:
+
+- Node.js
+- Express
 
 ---
 
-## Getting Started (Backend)
+## 📌 Current Limitations
 
-```bash
-cd backend
-npm install
-npm run dev
+- CSV only (PDF parsing not implemented yet)
+- No persistent storage
+- No AI-generated narratives (planned)
+- No merchant auto-categorization yet
+- No export-to-image yet
+
+---
+
+## 🔮 Planned Enhancements
+
+- PDF parsing support
+- AI-generated financial narratives
+- AI-based merchant categorization
+- PNG export for summary card
+
+---
+
+## 📊 Flow
+
+- Upload CSV
+- System normalizes transactions
+- Analytics engine computes insights
+- User enters immersive Wrapped story
+- Summary card
+- Insights deep dive
+
